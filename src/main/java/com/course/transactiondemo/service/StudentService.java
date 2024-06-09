@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 public class StudentService {
     private final IStudentRepository repository;
 
@@ -18,8 +17,15 @@ public class StudentService {
         this.addressService = addressService;
     }
 
+    @Transactional
     public Student insert(Student student) {
-        student.setAddress(addressService.insert(student.getAddress()));
+         Student newStudent = repository.save(student);
+         throw new RuntimeException("");
+    }
+
+    public Student semiInsert(Student student){
+        addressService.insert(student.getAddress());
         return repository.save(student);
     }
+
 }

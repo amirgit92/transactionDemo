@@ -15,6 +15,11 @@ public class AddressService {
     }
 
     public Address insert(Address address){
+        try {
+            throw new Exception();
+        } catch (Exception e) {
+//            throw new RuntimeException(e);
+        }
         return repository.save(address);
     }
 }

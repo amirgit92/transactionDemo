@@ -14,6 +14,7 @@ public class Student {
     private int id;
     private String name;
     private String nationalCode;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address", referencedColumnName = "id")
     private Address address;
 }
