@@ -4,13 +4,17 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
+import java.util.List;
+
 @Setter
+@Getter
 @Entity
-@Table(name = "STUDENTS")
-public class Student extends Person{
+public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String studentNumber;
+    private String name;
+    private String serialNumber;
+    @ManyToMany(mappedBy = "books")
+    private List<Guid> authors;
 }

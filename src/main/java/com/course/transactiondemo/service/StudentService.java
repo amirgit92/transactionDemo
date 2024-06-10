@@ -9,23 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class StudentService {
     private final IStudentRepository repository;
 
-    private final AddressService addressService;
-
-    public StudentService(IStudentRepository repository,
-                          AddressService addressService) {
+    public StudentService(IStudentRepository repository) {
         this.repository = repository;
-        this.addressService = addressService;
     }
 
     @Transactional
     public Student insert(Student student) {
          Student newStudent = repository.save(student);
          throw new RuntimeException("");
-    }
-
-    public Student semiInsert(Student student){
-        addressService.insert(student.getAddress());
-        return repository.save(student);
     }
 
 }
