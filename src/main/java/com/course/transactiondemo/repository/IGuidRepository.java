@@ -1,4 +1,4 @@
-package com.course.transactiondemo.repository.student;
+package com.course.transactiondemo.repository;
 
 import com.course.transactiondemo.entity.Guid;
 import org.springframework.data.jpa.repository.JpaRepository;

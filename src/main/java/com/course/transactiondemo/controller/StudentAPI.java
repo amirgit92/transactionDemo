@@ -1,5 +1,6 @@
 package com.course.transactiondemo.controller;
 
+import com.course.transactiondemo.dto.StudentDto;
 import com.course.transactiondemo.entity.Student;
 import com.course.transactiondemo.service.StudentService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/student")
+@RequestMapping("/students")
 public class StudentAPI {
     private final StudentService service;
 
@@ -16,9 +17,9 @@ public class StudentAPI {
         this.service = service;
     }
 
+    //todo change return type
     @PostMapping("insert")
-    public Student insert(@RequestBody Student student) {
-        return service.insert(student);
-//        return service.semiInsert(student);
+    public StudentDto insert(@RequestBody StudentDto studentDto) {
+        return service.insert(studentDto);
     }
 }
