@@ -3,7 +3,7 @@ package com.course.transactiondemo.service;
 import com.course.transactiondemo.dto.GuidDto;
 import com.course.transactiondemo.entity.Guid;
 import com.course.transactiondemo.repository.IGuidRepository;
-import org.springframework.beans.BeanUtils;
+import com.course.transactiondemo.util.Convert;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,28 +17,21 @@ public class GuidService {
     }
 
     public GuidDto insert(GuidDto guidDto) {
-        Guid guid = new Guid();
-        BeanUtils.copyProperties(guidDto, guid);
-        BeanUtils.copyProperties(repository.save(guid), guidDto);
-        return guidDto;
+        return Convert.convertObject(
+                repository.save(Convert.convertObject(guidDto, Guid.class)), GuidDto.class);
     }
 
     public GuidDto update(GuidDto guidDto) {
-        Guid guid = new Guid();
-        BeanUtils.copyProperties(guidDto, guid);
-        BeanUtils.copyProperties(repository.save(guid), guidDto);
-        return guidDto;
+        return Convert.convertObject(
+                repository.save(Convert.convertObject(guidDto, Guid.class)), GuidDto.class);
     }
 
     public GuidDto getById(int id) {
-        GuidDto guidDto = new GuidDto();
-        BeanUtils.copyProperties(repository.findById(id), guidDto);
-        return guidDto;
+        return Convert.convertObject(
+                repository.findById(id), GuidDto.class);
     }
 
     public void remove(GuidDto guidDto) {
-        Guid guid = new Guid();
-        BeanUtils.copyProperties(guidDto, guid);
-        repository.delete(guid);
+        repository.delete(Convert.convertObject(guidDto, Guid.class));
     }
 }

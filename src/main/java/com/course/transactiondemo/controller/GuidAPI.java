@@ -1,11 +1,10 @@
 package com.course.transactiondemo.controller;
 
 import com.course.transactiondemo.dto.GuidDto;
+import com.course.transactiondemo.dto.Result;
 import com.course.transactiondemo.service.GuidService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/guids")
 @RestController
@@ -18,7 +17,23 @@ public class GuidAPI {
     }
 
     @PostMapping("insert")
-    public GuidDto insert(@RequestBody GuidDto guidDto){
-        return service.insert(guidDto);
+    public ResponseEntity<Result> insert(@RequestBody GuidDto guidDto) {
+        return ResponseEntity.ok(new Result(200, service.insert(guidDto)));
+    }
+
+    @PutMapping("update")
+    public ResponseEntity<Result> update(@RequestBody GuidDto guidDto) {
+        return ResponseEntity.ok(new Result(200, service.update(guidDto)));
+    }
+
+    @DeleteMapping("remove")
+    public ResponseEntity<Result> remover(@RequestBody GuidDto guidDto) {
+        service.remove(guidDto);
+        return ResponseEntity.ok(new Result(200, "removed successfully"));
+    }
+
+    @GetMapping("get-by-id/{id}")
+    public ResponseEntity<Result> getById(@PathVariable int id) {
+        return ResponseEntity.ok(new Result(200, service.getById(id)));
     }
 }

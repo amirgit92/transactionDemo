@@ -3,11 +3,8 @@ package com.course.transactiondemo.service;
 import com.course.transactiondemo.dto.StudentDto;
 import com.course.transactiondemo.entity.Student;
 import com.course.transactiondemo.repository.IStudentRepository;
-import it.avutils.jmapper.JMapper;
-import org.springframework.beans.BeanUtils;
+import com.course.transactiondemo.util.Convert;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class StudentService {
@@ -21,33 +18,29 @@ public class StudentService {
     }
 
     public StudentDto insert(StudentDto studentDto) {
-        return entityToDto(repository.save(dtoToEntity(studentDto)));
+        return Convert.convertObject(repository.save(Convert.convertObject(studentDto, Student.class)), StudentDto.class);
     }
 
     public StudentDto update(StudentDto studentDto) {
-        return entityToDto(repository.save(dtoToEntity(studentDto)));
+        return Convert.convertObject(repository.save(Convert.convertObject(studentDto, Student.class)), StudentDto.class);
     }
 
-    public void remove(StudentDto studentDto){
-        repository.delete(dtoToEntity(studentDto));
+    public void remove(StudentDto studentDto) {
+        repository.delete(Convert.convertObject(studentDto, Student.class));
     }
 
-    public StudentDto getById(int id){
-        Optional<Student> student =  repository.findById(id);
-        if (student.isPresent()){
-            return entityToDto(student.get());
-        }
-        return new StudentDto();
+    public StudentDto getById(int id) {
+        return Convert.convertObject(repository.findById(id).get(), StudentDto.class);
     }
 
-    private StudentDto entityToDto(Student student) {
-        JMapper<StudentDto, Student> jMapper = new JMapper<>(StudentDto.class, Student.class);
-        return jMapper.getDestination(student);
-    }
-
-    private Student dtoToEntity(StudentDto studentDto) {
-        JMapper<Student, StudentDto> jMapper = new JMapper<>(Student.class, StudentDto.class);
-        return jMapper.getDestination(studentDto);
-    }
+//    private StudentDto entityToDto(Student student) {
+//        JMapper<StudentDto, Student> jMapper = new JMapper<>(StudentDto.class, Student.class);
+//        return jMapper.getDestination(student);
+//    }
+//
+//    private Student dtoToEntity(StudentDto studentDto) {
+//        JMapper<Student, StudentDto> jMapper = new JMapper<>(Student.class, StudentDto.class);
+//        return jMapper.getDestination(studentDto);
+//    }
 
 }

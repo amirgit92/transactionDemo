@@ -3,7 +3,7 @@ package com.course.transactiondemo.service;
 import com.course.transactiondemo.dto.BookDto;
 import com.course.transactiondemo.entity.Book;
 import com.course.transactiondemo.repository.IBookRepository;
-import org.springframework.beans.BeanUtils;
+import com.course.transactiondemo.util.Convert;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,30 +19,23 @@ public class BookService {
         this.repository = repository;
     }
 
-    public Optional<BookDto> insert(BookDto bookDto) {
-        throw new IllegalAccessError();
-//        Book book = new Book();
-//        BeanUtils.copyProperties(bookDto, book);
-//        BeanUtils.copyProperties(repository.save(book), bookDto);
-//        return Optional.ofNullable(bookDto);
+    public BookDto insert(BookDto bookDto) {
+
+        return Convert.convertObject(repository.save(Convert.convertObject(bookDto,Book.class)),BookDto.class);
     }
 
     public BookDto update(BookDto bookDto) {
-        Book book = new Book();
-        BeanUtils.copyProperties(bookDto, book);
-        BeanUtils.copyProperties(repository.save(book), bookDto);
-        return bookDto;
+        return Convert.convertObject(
+                repository.save(
+                        Convert.convertObject(bookDto, Book.class)), BookDto.class);
+
     }
 
     public BookDto getById(int id) {
-        BookDto bookDto = new BookDto();
-        BeanUtils.copyProperties(repository.findById(id), bookDto);
-        return bookDto;
+        return Convert.convertObject(repository.findById(id).get(), BookDto.class);
     }
 
     public void remove(BookDto bookDto) {
-        Book book = new Book();
-        BeanUtils.copyProperties(bookDto, book);
-        repository.delete(book);
+        repository.delete(Convert.convertObject(bookDto, Book.class));
     }
 }
