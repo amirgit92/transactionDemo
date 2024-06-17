@@ -11,11 +11,11 @@ import java.util.Set;
 @Entity
 @Setter
 @Getter
-public class Guid {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Guid extends Person{
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private int id;
     private String guidNumber;
     @ManyToMany
     @JoinTable(name = "Author_Guid",

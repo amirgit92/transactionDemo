@@ -21,4 +21,9 @@ public class BookApi {
     public BookDto insert(@RequestBody BookDto bookDto){
         return service.insert(bookDto);
     }
+
+    @PostMapping("update")
+    public BookDto update(@RequestBody BookDto bookDto){
+        return service.update(bookDto);
+    }
 }

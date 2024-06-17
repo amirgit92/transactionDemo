@@ -9,8 +9,5 @@ import lombok.Setter;
 @Entity
 @Table(name = "STUDENTS")
 public class Student extends Person{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     private String studentNumber;
 }

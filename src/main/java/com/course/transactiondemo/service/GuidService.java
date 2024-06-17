@@ -18,8 +18,27 @@ public class GuidService {
 
     public GuidDto insert(GuidDto guidDto) {
         Guid guid = new Guid();
-        BeanUtils.copyProperties(guidDto,guid);
-        BeanUtils.copyProperties(repository.save(guid),guidDto);
+        BeanUtils.copyProperties(guidDto, guid);
+        BeanUtils.copyProperties(repository.save(guid), guidDto);
         return guidDto;
+    }
+
+    public GuidDto update(GuidDto guidDto) {
+        Guid guid = new Guid();
+        BeanUtils.copyProperties(guidDto, guid);
+        BeanUtils.copyProperties(repository.save(guid), guidDto);
+        return guidDto;
+    }
+
+    public GuidDto getById(int id) {
+        GuidDto guidDto = new GuidDto();
+        BeanUtils.copyProperties(repository.findById(id), guidDto);
+        return guidDto;
+    }
+
+    public void remove(GuidDto guidDto) {
+        Guid guid = new Guid();
+        BeanUtils.copyProperties(guidDto, guid);
+        repository.delete(guid);
     }
 }

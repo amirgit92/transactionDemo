@@ -23,4 +23,23 @@ public class BookService {
         BeanUtils.copyProperties(repository.save(book), bookDto);
         return bookDto;
     }
+
+    public BookDto update(BookDto bookDto) {
+        Book book = new Book();
+        BeanUtils.copyProperties(bookDto, book);
+        BeanUtils.copyProperties(repository.save(book), bookDto);
+        return bookDto;
+    }
+
+    public BookDto getById(int id) {
+        BookDto bookDto = new BookDto();
+        BeanUtils.copyProperties(repository.findById(id), bookDto);
+        return bookDto;
+    }
+
+    public void remove(BookDto bookDto) {
+        Book book = new Book();
+        BeanUtils.copyProperties(bookDto, book);
+        repository.delete(book);
+    }
 }
