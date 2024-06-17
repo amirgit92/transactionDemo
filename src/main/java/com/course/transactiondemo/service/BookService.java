@@ -6,6 +6,8 @@ import com.course.transactiondemo.repository.IBookRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class BookService {
 
@@ -17,11 +19,12 @@ public class BookService {
         this.repository = repository;
     }
 
-    public BookDto insert(BookDto bookDto) {
-        Book book = new Book();
-        BeanUtils.copyProperties(bookDto, book);
-        BeanUtils.copyProperties(repository.save(book), bookDto);
-        return bookDto;
+    public Optional<BookDto> insert(BookDto bookDto) {
+        throw new IllegalAccessError();
+//        Book book = new Book();
+//        BeanUtils.copyProperties(bookDto, book);
+//        BeanUtils.copyProperties(repository.save(book), bookDto);
+//        return Optional.ofNullable(bookDto);
     }
 
     public BookDto update(BookDto bookDto) {

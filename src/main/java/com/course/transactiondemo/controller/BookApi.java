@@ -1,11 +1,14 @@
 package com.course.transactiondemo.controller;
 
 import com.course.transactiondemo.dto.BookDto;
+import com.course.transactiondemo.dto.Result;
 import com.course.transactiondemo.service.BookService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RequestMapping("/books")
 @RestController
@@ -18,12 +21,24 @@ public class BookApi {
     }
 
     @PostMapping("insert")
-    public BookDto insert(@RequestBody BookDto bookDto){
-        return service.insert(bookDto);
+    public ResponseEntity<Result> insert(@RequestBody BookDto bookDto){
+
+            return ResponseEntity.ok(service.insert(bookDto).map(result -> new Result(200,result))
+                    .orElseThrow(IllegalAccessError::new));
     }
 
     @PostMapping("update")
-    public BookDto update(@RequestBody BookDto bookDto){
-        return service.update(bookDto);
+    public ResponseEntity<Result> update(@RequestBody BookDto bookDto){
+         return ResponseEntity.ok(new Result(200,service.update(bookDto)));
+    }
+
+    public ResponseEntity<Result> delete(@RequestBody BookDto bookDto){
+        service.remove(bookDto);
+        return ResponseEntity.ok(new Result(200,"successfully removed"));
+    }
+
+    public ResponseEntity<Result> getById(@PathVariable int id){
+        service.getById(id);
+        return null;
     }
 }
